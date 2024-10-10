@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
 
     /**
@@ -6,6 +8,7 @@ public class Main {
 
     public static int meanTotalWasteKgPerCapitaPerYear(int[] totalWasteKgPerCapitaPerYear)
     {
+
         return -1;
     }
 
@@ -143,9 +146,16 @@ public class Main {
 
     public static int maxRetailEstimateTonnesPerYear(int[] retailEstimatesTonnesPerYear)
     {
-        return -1;
+        int maxValue = 0;
+        for(int i = 0; i < retailEstimatesTonnesPerYear.length; i++){
+            if(retailEstimatesTonnesPerYear[i] > maxValue){
+                maxValue = retailEstimatesTonnesPerYear[i];
+            }
+        }
+        return maxValue;
     }
 
+    //maxRetailEstimateTonnesPerYear
     public static int maxFoodServiceEstimateKgPerCapitaPerYear(int[] foodServiceEstimatesKgPerCapitaPerYear)
     {
         return -1;
@@ -160,23 +170,68 @@ public class Main {
      * Misc Methods
      */
 
-    public static String getCountryTotalWastePerYear(String country, String[] countries, int[] totalWasteKgPerCapitaPerYear)
+    public static int getCountryTotalWastePerYear(String country, String[] countries, int[] totalWasteKgPerCapitaPerYear)
     {
-        return "";
+        // find the countries index
+        for(int i = 0; i < countries.length; i ++){
+            if(countries[i].equals(country)){
+                return(totalWasteKgPerCapitaPerYear[i]);
+            }
+        }
+        return -1;
     }
 
-    public static String getCountryWithMostWastePerCapita(String[] countries, int[] totalWasteKgPerCapitaPerYear)
-    {
-        return "";
+    public static String getCountryWithMostWastePerCapita(String[] countries, int[] totalWasteKgPerCapitaPerYear) {
+        int maxWaste = 0;
+        int indexOf = 0;
+        for(int i = 0; i < totalWasteKgPerCapitaPerYear.length; i++){
+            if(totalWasteKgPerCapitaPerYear[i] > maxWaste){
+                maxWaste = totalWasteKgPerCapitaPerYear[i];
+                indexOf = i;
+            }
+        }
+        return countries[indexOf];
     }
 
     public static String[] getCountriesWithHighestPovertyPercentage(String[] countries, double[] percentagesShareInPoverty)
     {
-        return new String[0];
+        double maxPov = 0;
+        int indexOf = 0;
+        int arrayLength = 0;
+        int indexing = 0;
+        String[] highestC = new String[countries.length];  // length 5
+        int z = 0;
+            for (int i = 0; i < percentagesShareInPoverty.length; i++) {
+                if (percentagesShareInPoverty[i] > maxPov) {
+                    maxPov = percentagesShareInPoverty[i];
+                    indexOf = i;
+                }
+            }
+            for(int i = 0; i<percentagesShareInPoverty.length; i++){
+                if(percentagesShareInPoverty[i] == maxPov){
+                    arrayLength++;
+                }
+            }
+            String[] balls = new String[arrayLength];
+        for(int i = 0; i<percentagesShareInPoverty.length; i++){
+            if(percentagesShareInPoverty[i] == maxPov){
+                balls[indexing] = String.valueOf(countries[i]);
+                indexing++;
+            }
+        }
+            return balls;
     }
 
     public static String[] getCountriesWithHighConfidence(String[] countries, String[] confidences)
     {
-        return new String[0];
+        StringBuilder twoballs = new StringBuilder();
+        for(int i = 0; i < countries.length; i ++){
+            if(confidences[i].equals("High Confidence")){
+                twoballs.append(countries[i]).append("Ben Dover");
+            }
+
+        }
+        String[] threeballs = twoballs.toString().split("Ben Dover");
+        return threeballs;
     }
 }
